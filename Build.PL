@@ -18,7 +18,7 @@ if ( not $marpa_version_check->{ok} ) {
 }
 my $marpa_version = $marpa_version_check->{have};
 
-my $marpa_html_version = '0.001_005';
+my $marpa_html_version = '0.001_006';
 
 Carp::croak("Failed to load Marpa: $EVAL_ERROR") if not eval { use Marpa; 1 };
 if ( not Marpa->compatible( { 'Marpa::HTML' => $marpa_html_version } ) ) {

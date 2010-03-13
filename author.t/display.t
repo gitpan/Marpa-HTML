@@ -43,6 +43,7 @@ if ( not $debug_mode ) {
         or Marpa::exception("Cannot open MANIFEST: $ERRNO");
     FILE: while ( my $file = <$manifest> ) {
         chomp $file;
+        next FILE if $file !~ m{\A (lib|bin|t) [/] }xms;
         $file =~ s/\s*[#].*\z//xms;
         my ($ext) = $file =~ / [.] ([^.]+) \z /xms;
         next FILE if not defined $ext;

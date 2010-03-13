@@ -16,7 +16,7 @@ BEGIN {
 }
 
 my %exclude = map { ( $_, 1 ) } qw(
-    inc/Test/Weaken.pm
+    ../inc/drafts/Implementation.pod
 );
 
 open my $manifest, '<', 'MANIFEST'

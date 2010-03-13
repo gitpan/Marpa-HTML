@@ -5,7 +5,7 @@ use strict;
 use warnings;
 
 BEGIN {
-    our $VERSION = '0.001_005';
+    our $VERSION = '0.001_006';
 }
 
 our @EXPORT_OK;
@@ -30,14 +30,14 @@ Carp::croak
 
 use English qw( -no_match_vars );
 
-use Marpa::Offset qw(
+use Marpa::HTML::Offset qw(
     :package=Marpa::HTML::Internal::TDesc
     TYPE
     START_TOKEN
     END_TOKEN
 );
 
-use Marpa::Offset qw(
+use Marpa::HTML::Offset qw(
     :package=Marpa::HTML::Internal::TDesc::Element
     TYPE
     START_TOKEN
@@ -58,7 +58,7 @@ use Marpa::Offset qw(
     unbroken_text => 1,
 );
 
-use Marpa::Offset qw(
+use Marpa::HTML::Offset qw(
     :package=Marpa::HTML::Internal::Token
     TYPE
     LINE
