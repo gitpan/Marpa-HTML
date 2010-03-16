@@ -1,9 +1,5 @@
 Revision history for Marpa::HTML
 
-0.001_006 Sat Mar 13 08:32:07 2010
-0.001_005 Fri Mar 12 17:59:54 2010
-0.001_004 Thu Mar 11 01:51:19 2010
-0.001_003 Thu Mar 11 01:49:59 2010
-0.001_002 Thu Mar 11 01:45:09 2010
-0.001_000 Thu Mar 11 01:21:58 PST 2010
-Initial series of development releases.
+0.100000 Mon Mar 15 17:41:59 2010
+
+    * Initial release.  Formerly part of the Marpa distribution.
