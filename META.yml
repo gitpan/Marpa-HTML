@@ -31,11 +31,14 @@ no_index:
 provides:
   Marpa::HTML:
     file: lib/Marpa/HTML.pm
-    version: 0.100000
+    version: 0.101_000
 requires:
+  HTML::Parser: 3.64
   HTML::PullParser: 3.57
-  Marpa: 0.012_000
+  Marpa: 0.100
+  Scalar::Util: 0
+  perl: 5.01
 resources:
   license: http://dev.perl.org/licenses/
   repository: git://github.com/jeffreykegler/Marpa--HTML.git
-version: 0.100000
+version: 0.101_000

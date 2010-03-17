@@ -10,7 +10,7 @@ use English qw( -no_match_vars );
 use Module::Build;
 
 our $MINIMUM_MARPA_VERSION;
-$MINIMUM_MARPA_VERSION = '0.012_000';
+$MINIMUM_MARPA_VERSION = '0.100';
 my $marpa_version_check =
     Module::Build->check_installed_status( 'Marpa', $MINIMUM_MARPA_VERSION );
 if ( not $marpa_version_check->{ok} ) {
@@ -18,7 +18,7 @@ if ( not $marpa_version_check->{ok} ) {
 }
 my $marpa_version = $marpa_version_check->{have};
 
-my $marpa_html_version = '0.100000';
+my $marpa_html_version = '0.101_000';
 
 Carp::croak("Failed to load Marpa: $EVAL_ERROR") if not eval { use Marpa; 1 };
 if ( not Marpa->compatible( { 'Marpa::HTML' => $marpa_html_version } ) ) {
@@ -66,10 +66,12 @@ my $build = $class->new(
     dist_author   => 'Jeffrey Kegler',
     dist_version  => $marpa_html_version,
     dist_abstract => 'High-level HTML Parsing',
-    requires      => {
+    requires => {
         'Scalar::Util'     => 0,
+        'Marpa'            => $MINIMUM_MARPA_VERSION,
         'HTML::Parser'     => '3.64',
         'HTML::PullParser' => '3.57',
+        perl               => 5.010,
     },
     build_requires => { 'Test::More' => 0.94, },
     PL_files       => {},            # workaround Module::Build bug
@@ -101,10 +103,6 @@ my $build = $class->new(
     },
     meta_add => {
         distribution_type => 'module',
-        requires          => {
-            'Marpa'            => $MINIMUM_MARPA_VERSION,
-            'HTML::PullParser' => '3.57'
-        },
         provides => {
             'Marpa::HTML' => {
                 file    => 'lib/Marpa/HTML.pm',

@@ -466,7 +466,7 @@ of its descendants.
 =head2 :TRAILER
 
 The C<:TRAILER> pseudoclass specifies the action for SGML trailer.
-This is the part of the HTML document which precedes the HTML root element.
+This is the part of the HTML document which follows the HTML root element.
 Components valid in the
 trailer include SGML comments, processing instructions, and whitespace.
 Cruft can also be found here, though for L<Marpa::HTML> that is a
@@ -531,7 +531,7 @@ The terminals view is usually seen as part of other views.
 At this writing the API does not contain a "pure" terminals view method.
 For a terminals view of the whole HTML document,
 L<HTML::PullParser> does the job with significantly lower overhead.
-For a terminals view of the sections with no values defined,
+For views and sections of views with no values defined,
 the descendants view (L<described below|/"The Descendants View">)
 is equivalent to the terminals view.
 
@@ -766,7 +766,7 @@ its text unchanged from the source document.
 For an element with an explicit start tag,
 returns the original text of the start tag.
 For non-element components, returns undef.
-For elements with no start tag, returns undef.
+For elements with no explicit start tag, returns undef.
 
 =item Marpa::HTML::tagname
 
@@ -963,8 +963,8 @@ No other component has a default action.
 
 Where tags conflict with structure,
 L<HTML::Parser> follows structure.
-Following the structure means, for example,
-that, if semantic actions for the C<html>, C<head>,
+"Following structure" means that, for example,
+if semantic actions for the C<html>, C<head>,
 and C<body> elements exist,
 they will be called once and only once during every parse.
 
@@ -1021,7 +1021,8 @@ elements listed above.
 For any non-empty HTML element, there is some circumstance
 under which
 L<Marpa::HTML> will recognize a virtual end tag.
-As one example, at end of file
+At end of file,
+as one example,
 L<Marpa::HTML> will do its best to produce a balanced
 HTML structure by
 creating a virtual end tag for every element
@@ -1037,6 +1038,6 @@ may be exported.
 
 =head1 LICENSE AND COPYRIGHT
 
-Copyright 2007-2009 Jeffrey Kegler, all rights reserved.  Marpa is free
+Copyright 2007-2010 Jeffrey Kegler, all rights reserved.  Marpa is free
 software under the Perl license.  For details see the LICENSE file in
 the Marpa distribution.
