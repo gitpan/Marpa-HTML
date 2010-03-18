@@ -58,7 +58,7 @@ sub fix_build_pl {
     my $file_name = shift;
 
     if ( ${$text_ref}
-        !~ s/(my\s+\$marpa_html_version\s*=\s*')$old';/$1$new';/xms )
+        !~ s/(our\s+\$MARPA_HTML_VERSION\s*=\s*')$old';/$1$new';/xms )
     {
         say {*STDERR}
             "failed to change VERSION from $old to $new in $file_name"

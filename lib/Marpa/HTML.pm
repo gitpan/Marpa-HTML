@@ -5,7 +5,7 @@ use strict;
 use warnings;
 
 BEGIN {
-    our $VERSION = '0.101_000';
+    our $VERSION = '0.101_002';
 }
 
 our @EXPORT_OK;

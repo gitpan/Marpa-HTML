@@ -9,23 +9,8 @@ use English qw( -no_match_vars );
 
 use Module::Build;
 
-our $MINIMUM_MARPA_VERSION;
-$MINIMUM_MARPA_VERSION = '0.100';
-my $marpa_version_check =
-    Module::Build->check_installed_status( 'Marpa', $MINIMUM_MARPA_VERSION );
-if ( not $marpa_version_check->{ok} ) {
-    Carp::croak( $marpa_version_check->{message} );
-}
-my $marpa_version = $marpa_version_check->{have};
-
-my $marpa_html_version = '0.101_000';
-
-Carp::croak("Failed to load Marpa: $EVAL_ERROR") if not eval { use Marpa; 1 };
-if ( not Marpa->compatible( { 'Marpa::HTML' => $marpa_html_version } ) ) {
-    Carp::croak(
-        "Unsupported Marpa::HTML $marpa_html_version with Marpa $marpa_version"
-    );
-}
+our $MINIMUM_MARPA_VERSION = '0.100';
+our $MARPA_HTML_VERSION    = '0.101_002';
 
 my $class = Module::Build->subclass(
     class => 'Module::Build::Custom',
@@ -58,23 +43,44 @@ my $class = Module::Build->subclass(
         Carp::carp(join "\n", @problems, "Fatal Error\n") if @problems;
         $self->SUPER::ACTION_dist;
     } ## end sub ACTION_dist
+
+    sub ACTION_build {
+        my $self = shift;
+
+        eval "require Marpa ";
+        my $marpa_version = $Marpa::VERSION;
+        my $marpa_html_version = $self->dist_version();
+        if (not Marpa::compatible( { 'Marpa::HTML' => $marpa_html_version } )
+            )
+        {
+            Carp::croak(
+                "Unsupported Marpa::HTML $marpa_html_version with Marpa $marpa_version"
+            );
+        } ## end if ( not Marpa->compatible( { 'Marpa::HTML' => ...}))
+
+        $self->SUPER::ACTION_build;
+    } ## end sub ACTION_build
+
 SUBCLASS
 
 my $build = $class->new(
     dist_name     => 'Marpa-HTML',
     module_name   => 'Marpa::HTML',
     dist_author   => 'Jeffrey Kegler',
-    dist_version  => $marpa_html_version,
+    dist_version  => $MARPA_HTML_VERSION,
     dist_abstract => 'High-level HTML Parsing',
-    requires => {
+    requires      => {
         'Scalar::Util'     => 0,
         'Marpa'            => $MINIMUM_MARPA_VERSION,
         'HTML::Parser'     => '3.64',
         'HTML::PullParser' => '3.57',
         perl               => 5.010,
     },
-    build_requires => { 'Test::More' => 0.94, },
-    PL_files       => {},            # workaround Module::Build bug
+    build_requires => {
+        'Test::More' => 0.94,
+        'Marpa'      => $MINIMUM_MARPA_VERSION,
+    },
+    PL_files => {},    # workaround Module::Build bug
     script_files => [ 'script/html_fmt', 'script/html_score', ],
     pod_files    => {
         'lib/Marpa/HTML/Doc/Support.pod' => 'lib/Marpa/Support.pod',
@@ -103,10 +109,10 @@ my $build = $class->new(
     },
     meta_add => {
         distribution_type => 'module',
-        provides => {
+        provides          => {
             'Marpa::HTML' => {
                 file    => 'lib/Marpa/HTML.pm',
-                version => $marpa_html_version,
+                version => $MARPA_HTML_VERSION,
             },
         },
     },
