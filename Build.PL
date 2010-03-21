@@ -10,7 +10,7 @@ use English qw( -no_match_vars );
 use Module::Build;
 
 our $MINIMUM_MARPA_VERSION = '0.100';
-our $MARPA_HTML_VERSION    = '0.101_002';
+our $MARPA_HTML_VERSION    = '0.102000';
 
 my $class = Module::Build->subclass(
     class => 'Module::Build::Custom',
