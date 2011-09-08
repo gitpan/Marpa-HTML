@@ -1,4 +1,8 @@
-#!/usr/bin/perl
+#!perl
+# This software is copyright (c) 2011 by Jeffrey Kegler
+# This is free software; you can redistribute it and/or modify it
+# under the same terms as the Perl 5 programming language system
+# itself.
 
 use 5.010;
 use strict;
@@ -14,7 +18,7 @@ Test::More::use_ok('Marpa::HTML::Test');
 Test::More::use_ok('Marpa::HTML::Test::Util');
 Test::More::use_ok('HTML::PullParser');
 
-my @script_dir = qw( script );
+my @script_dir = qw( blib script );
 my @data_dir   = qw( t fmt_t_data );
 
 for my $test (qw(1 2)) {

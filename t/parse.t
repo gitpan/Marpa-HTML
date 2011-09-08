@@ -1,4 +1,8 @@
 #!perl
+# This software is copyright (c) 2011 by Jeffrey Kegler
+# This is free software; you can redistribute it and/or modify it
+# under the same terms as the Perl 5 programming language system
+# itself.
 
 use 5.010;
 use strict;
@@ -8,12 +12,11 @@ use English qw( -no_match_vars );
 # These tests are based closely on those in the HTML-Tree module,
 # the authors of which I gratefully acknowledge.
 
-use Test::More tests => 44;
+use Test::More tests => 43;
 my $DEBUG = 2;
 
 Test::More::use_ok('HTML::Entities');
 Test::More::use_ok('HTML::PullParser');
-Test::More::use_ok('Marpa');
 Test::More::use_ok('Marpa::HTML');
 
 my $html_args = {
@@ -61,12 +64,12 @@ my $html_args = {
 
         my $descendant_data =
 
-# Marpa::Display
+# Marpa::HTML::Display
 # name: dataspec example
 
             Marpa::HTML::descendants('token_type,literal,element')
 
-# Marpa::Display::End
+# Marpa::HTML::Display::End
 
             ;    # semi to end $descendant_data definition
 

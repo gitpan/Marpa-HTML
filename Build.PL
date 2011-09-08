@@ -1,4 +1,8 @@
 #!/usr/bin/perl
+# This software is copyright (c) 2011 by Jeffrey Kegler
+# This is free software; you can redistribute it and/or modify it
+# under the same terms as the Perl 5 programming language system
+# itself.
 
 use 5.010;
 use strict;
@@ -9,8 +13,10 @@ use English qw( -no_match_vars );
 
 use Module::Build;
 
+use lib File::Spec->catdir('config');
+use Marpa::HTML::Build_Me;
+
 our $MINIMUM_MARPA_VERSION = '0.100';
-our $MARPA_HTML_VERSION    = '0.102000';
 
 my $class = Module::Build->subclass(
     class => 'Module::Build::Custom',
@@ -44,41 +50,26 @@ my $class = Module::Build->subclass(
         $self->SUPER::ACTION_dist;
     } ## end sub ACTION_dist
 
-    sub ACTION_build {
-        my $self = shift;
-
-        eval "require Marpa ";
-        my $marpa_version = $Marpa::VERSION;
-        my $marpa_html_version = $self->dist_version();
-        if (not Marpa::compatible( { 'Marpa::HTML' => $marpa_html_version } )
-            )
-        {
-            Carp::croak(
-                "Unsupported Marpa::HTML $marpa_html_version with Marpa $marpa_version"
-            );
-        } ## end if ( not Marpa->compatible( { 'Marpa::HTML' => ...}))
-
-        $self->SUPER::ACTION_build;
-    } ## end sub ACTION_build
-
 SUBCLASS
 
-my $build = $class->new(
+my $build = Marpa::HTML::Build_Me->new(
     dist_name     => 'Marpa-HTML',
     module_name   => 'Marpa::HTML',
     dist_author   => 'Jeffrey Kegler',
-    dist_version  => $MARPA_HTML_VERSION,
     dist_abstract => 'High-level HTML Parsing',
+    recommends      => {
+	'Marpa::XS' => '0.010000',
+    },
+    configure_requires => { 'Module::Build' => 0.38 },
     requires      => {
         'Scalar::Util'     => 0,
-        'Marpa'            => $MINIMUM_MARPA_VERSION,
         'HTML::Parser'     => '3.64',
         'HTML::PullParser' => '3.57',
+	'Marpa::PP' => '0.008000',
         perl               => 5.010,
     },
     build_requires => {
         'Test::More' => 0.94,
-        'Marpa'      => $MINIMUM_MARPA_VERSION,
     },
     PL_files => {},    # workaround Module::Build bug
     script_files => [ 'script/html_fmt', 'script/html_score', ],
@@ -112,12 +103,9 @@ my $build = $class->new(
         provides          => {
             'Marpa::HTML' => {
                 file    => 'lib/Marpa/HTML.pm',
-                version => $MARPA_HTML_VERSION,
             },
         },
     },
-    license            => 'perl',
-    create_license     => 1,
     create_readme      => 0,
     create_makefile_pl => 'small',
     test_files => [ map { glob $_ } qw(t/*.t t/*/*.t lib/Marpa/HTML/t/*.t) ],

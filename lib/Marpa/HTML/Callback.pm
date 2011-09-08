@@ -1,3 +1,8 @@
+# This software is copyright (c) 2011 by Jeffrey Kegler
+# This is free software; you can redistribute it and/or modify it
+# under the same terms as the Perl 5 programming language system
+# itself.
+
 package Marpa::HTML::Internal::Callback;
 
 use 5.010;
@@ -10,8 +15,6 @@ use integer;
 ### Using smart comments <where>...
 
 use English qw( -no_match_vars );
-
-use Marpa::Internal;
 
 sub Marpa::HTML::start_tag {
 
@@ -274,12 +277,6 @@ sub Marpa::HTML::tagname {
 
 sub Marpa::HTML::literal_ref {
 
-    # The next line
-    # ties Marpa::HTML inappropriately to Marpa's
-    # internals
-    # I've commented it out and all regression tests pass.
-    # return q{} if $Marpa::Internal::SETTING_NULL_VALUES;
-
     my $parse_instance = $Marpa::HTML::Internal::PARSE_INSTANCE;
     Marpa::exception('Attempt to get literal value outside of a parse')
         if not defined $parse_instance;
@@ -289,12 +286,6 @@ sub Marpa::HTML::literal_ref {
 } ## end sub Marpa::HTML::literal_ref
 
 sub Marpa::HTML::literal {
-
-    # The next line
-    # ties Marpa::HTML inappropriately to Marpa's
-    # internals.
-    # I've commented it out and all regression tests pass.
-    # return q{} if $Marpa::Internal::SETTING_NULL_VALUES;
 
     my $parse_instance = $Marpa::HTML::Internal::PARSE_INSTANCE;
     Carp::confess('Attempt to get literal value outside of a parse')

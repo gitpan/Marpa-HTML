@@ -1,14 +1,17 @@
-#!/usr/bin/perl
+#!perl
+# This software is copyright (c) 2011 by Jeffrey Kegler
+# This is free software; you can redistribute it and/or modify it
+# under the same terms as the Perl 5 programming language system
+# itself.
 
 use 5.010;
 use strict;
 use warnings;
 
 use lib 'lib';
-use Test::More tests => 4;
+use Test::More tests => 3;
 
 Test::More::use_ok('HTML::PullParser');
-Test::More::use_ok('Marpa');
 Test::More::use_ok('Marpa::HTML');
 
 use Carp;

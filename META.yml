@@ -3,13 +3,12 @@ abstract: 'High-level HTML Parsing'
 author:
   - 'Jeffrey Kegler'
 build_requires:
-  Marpa: 0.100
   Test::More: 0.94
 configure_requires:
-  Module::Build: 0.36
-distribution_type: module
-generated_by: 'Module::Build version 0.3601'
-license: perl
+  Module::Build: 0.38
+dynamic_config: 1
+generated_by: 'Module::Build version 0.38, CPAN::Meta::Converter version 2.110930'
+license: unknown
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
   version: 1.4
@@ -32,14 +31,15 @@ no_index:
 provides:
   Marpa::HTML:
     file: lib/Marpa/HTML.pm
-    version: 0.102000
+    version: 0
+recommends:
+  Marpa::XS: 0.010000
 requires:
   HTML::Parser: 3.64
   HTML::PullParser: 3.57
-  Marpa: 0.100
+  Marpa::PP: 0.008000
   Scalar::Util: 0
   perl: 5.01
 resources:
-  license: http://dev.perl.org/licenses/
   repository: git://github.com/jeffreykegler/Marpa--HTML.git
-version: 0.102000
+version: 0.103_000

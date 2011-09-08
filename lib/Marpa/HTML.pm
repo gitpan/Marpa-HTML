@@ -1,12 +1,18 @@
+# This software is copyright (c) 2011 by Jeffrey Kegler
+# This is free software; you can redistribute it and/or modify it
+# under the same terms as the Perl 5 programming language system
+# itself.
+
 package Marpa::HTML;
 
 use 5.010;
 use strict;
 use warnings;
 
-BEGIN {
-    our $VERSION = '0.102000';
-}
+use vars qw($VERSION $STRING_VERSION);
+$VERSION = '0.103_000';
+$STRING_VERSION = $VERSION;
+$VERSION = eval $VERSION;
 
 our @EXPORT_OK;
 use base qw(Exporter);
@@ -18,11 +24,18 @@ use Carp ();
 use HTML::PullParser;
 use HTML::Entities qw(decode_entities);
 use HTML::Tagset ();
-use Marpa 0.012_000;
-
-Carp::croak
-    "Unsupported Marpa::HTML $Marpa::HTML::VERSION with Marpa $Marpa::VERSION"
-    if not Marpa->compatible( { 'Marpa::HTML' => $Marpa::HTML::VERSION } );
+# versions below must be coordinated with
+# those required in Build.PL
+BEGIN {
+    my $using_xs = eval { require Marpa::XS::Installed; 1 };
+    if ($using_xs) {
+        require Marpa::XS;
+	Marpa::XS->VERSION(0.010000);
+    } else {
+        require Marpa::PP;
+	Marpa::PP->VERSION(0.008000);
+    }
+}
 
 # use Smart::Comments '-ENV';
 
@@ -668,7 +681,7 @@ END_OF_STRING
 # until the HTML::Implementation doc
 # is ready.
 
-# Marpa::Display
+# Marpa::HTML::Display
 # name: HTML BNF
 # ignore: 1
 # start-after-line: END_OF_BNF
@@ -1341,7 +1354,6 @@ sub parse {
     }
 
     $recce->end_input();
-    $recce->strip();    # Saves lots of memory
 
     my %closure = ();
     {

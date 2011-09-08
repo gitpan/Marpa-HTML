@@ -1,3 +1,8 @@
+# This software is copyright (c) 2011 by Jeffrey Kegler
+# This is free software; you can redistribute it and/or modify it
+# under the same terms as the Perl 5 programming language system
+# itself.
+
 package Marpa::HTML::Test::Util;
 
 # The original of this code was copied from Andy Lester's Ack
@@ -38,8 +43,10 @@ sub build_command_line {
         @args = map { quotemeta $_ } @args;
     }
 
-    return
-        "$EXECUTABLE_NAME -Ilib ./lib/Marpa/HTML/Test/capture-stderr $catcherr_file @args";
+    return "$EXECUTABLE_NAME -Ilib @args";
+    # capture-stderr drops core on my Mac OS Tiger laptop
+    # return
+        # "$EXECUTABLE_NAME -Ilib ./lib/Marpa/HTML/Test/capture-stderr $catcherr_file @args";
 } ## end sub build_command_line
 
 sub run_command {
@@ -69,12 +76,14 @@ sub run_with_stderr {
         ( $CHILD_ERROR >> 8 ),
     );
 
-    open my $fh, '<', $catcherr_file;
-    my $stderr = do { local $RS = undef; <$fh> };
-    close $fh;
-    unlink $catcherr_file;
+    # Previous logic drops core on Darwin
+    # open my $fh, '<', $catcherr_file;
+    # my $stderr = do { local $RS = undef; <$fh> };
+    # close $fh;
+    # unlink $catcherr_file;
 
-    return ( $stdout, $stderr, $rc );
+    return ( $stdout, q{}, $rc );
+    # return ( $stdout, $stderr, $rc );
 } ## end sub run_with_stderr
 
 1;

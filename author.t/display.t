@@ -1,4 +1,8 @@
 #!perl
+# This software is copyright (c) 2011 by Jeffrey Kegler
+# This is free software; you can redistribute it and/or modify it
+# under the same terms as the Perl 5 programming language system
+# itself.
 
 use 5.010;
 use strict;
@@ -13,8 +17,8 @@ use Carp;
 use Perl::Tidy;
 use Text::Wrap;
 
-use lib 'lib';
-use Marpa::Display;
+use lib 'tool/lib';
+use Marpa::HTML::Display;
 
 my $warnings = 0;
 my $options_result = GetOptions( 'warnings' => \$warnings );
@@ -81,7 +85,7 @@ else {
 }
 ## use critic
 
-my $display_data = Marpa::Display->new();
+my $display_data = Marpa::HTML::Display->new();
 
 FILE: for my $file (@test_files) {
     if ( not -f $file ) {
