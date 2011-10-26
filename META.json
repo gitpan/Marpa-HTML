@@ -40,18 +40,21 @@
       },
       "configure" : {
          "requires" : {
-            "Module::Build" : "0.38"
+            "Module::Build" : "0.3601"
          }
       },
       "runtime" : {
          "recommends" : {
-            "Marpa::XS" : "0.010000"
+            "Marpa::XS" : "0.018000"
          },
          "requires" : {
+            "Carp" : "1.08",
+            "Data::Dumper" : "2.125",
             "HTML::Parser" : "3.64",
             "HTML::PullParser" : "3.57",
-            "Marpa::PP" : "0.008000",
-            "Scalar::Util" : 0,
+            "List::Util" : "1.21",
+            "Marpa::PP" : "0.010000",
+            "Scalar::Util" : "1.21",
             "perl" : "5.01"
          }
       }
@@ -68,5 +71,5 @@
          "url" : "git://github.com/jeffreykegler/Marpa--HTML.git"
       }
    },
-   "version" : "0.103_000"
+   "version" : "0.103_001"
 }
