@@ -64,11 +64,11 @@
          "version" : 0
       }
    },
-   "release_status" : "testing",
+   "release_status" : "stable",
    "resources" : {
       "repository" : {
          "url" : "git://github.com/jeffreykegler/Marpa--HTML.git"
       }
    },
-   "version" : "0.103_004"
+   "version" : "0.104000"
 }
